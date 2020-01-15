@@ -1,0 +1,30 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+    </style>
+
+
+    <style name="Theme1">
+        <item name="theme_text_color">@color/color_304ffe</item>
+        <item name="theme_text_background">@color/white</item>
+        <item name="theme_text_backgroundColor">@color/white</item>
+        <item name="theme_text_drawableTint">@color/color_304ffe</item>
+    </style>
+
+
+
+    <style name="Theme2">
+        <item name="theme_text_color">@color/white</item>
+        <item name="theme_text_background">@color/color_304ffe</item>
+        <item name="theme_text_backgroundColor">@color/color_304ffe</item>
+        <item name="theme_text_drawableTint">@color/white</item>
+    </style>
+
+
+</resources>

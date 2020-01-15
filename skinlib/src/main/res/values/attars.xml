@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="theme_text_color" format="reference|color"/>
+    <attr name="theme_text_background" format="reference"/>
+    <attr name="theme_text_backgroundColor" format="reference|color"/>
+    <attr name="theme_text_drawableTint" format="reference|color"/>
+
+</resources>
