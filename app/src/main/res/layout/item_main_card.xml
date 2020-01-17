@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="Bean"
+            type="String" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="3dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/colorAccent"
+        >
+        <TextView
+            android:textSize="22sp"
+            android:gravity="center"
+            android:text="@{Bean}"
+            android:textColor="@color/colorAccent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

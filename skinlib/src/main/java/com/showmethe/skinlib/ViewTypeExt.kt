@@ -10,16 +10,27 @@ import android.view.View
 private const val TextView = "androidx.appcompat.widget.AppCompatTextView"
 private const val MaterialTextView = "com.google.android.material.textview.MaterialTextView"
 
+private const val Button = "androidx.appcompat.widget.AppCompatButton"
+private const val MaterialButton = "com.google.android.material.button.MaterialButton"
+
 enum class ViewType{
-    View,TextView,MaterialTextView
+    View,TextView,MaterialTextView,Button,MaterialButton
 }
 
 fun View.viewType (): ViewType {
-    val clazz = this::class.java.name
-    if( clazz == TextView){
-        return ViewType.TextView
-    }else if(clazz == MaterialTextView){
-        return ViewType.MaterialTextView
+    return when (this::class.java.name) {
+        TextView -> {
+            ViewType.TextView
+        }
+        MaterialTextView -> {
+            ViewType.MaterialTextView
+        }
+        Button -> {
+            ViewType.Button
+        }
+        MaterialButton -> {
+            ViewType.MaterialButton
+        }
+        else -> ViewType.View
     }
-    return ViewType.View
 }

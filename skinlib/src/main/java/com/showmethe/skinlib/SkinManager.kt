@@ -9,7 +9,11 @@ import android.view.ContextThemeWrapper
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import kotlin.collections.ArrayList
+import androidx.databinding.ViewDataBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  *  com.example.ken.kmvvm.skin
@@ -35,11 +39,20 @@ class SkinManager private constructor(var context: Context){
 
         private val attrs = intArrayOf(
             R.attr.theme_text_color,R.attr.theme_text_background,
-                R.attr.theme_text_backgroundColor,R.attr.theme_text_drawableTint)
+                R.attr.theme_text_backgroundColor,R.attr.theme_text_drawableTint,
+
+            R.attr.theme_button_textColor,R.attr.theme_button_background,
+            R.attr.theme_button_backgroundColor,R.attr.theme_button_drawableTint,R.attr.theme_button_iconTint)
 
 
-        private val styleName = arrayOf("theme_text_color","theme_text_background",
-                "theme_text_backgroundColor","theme_text_drawableTint")
+        private val styleName = arrayOf(
+
+            "theme_text_color","theme_text_background",
+                "theme_text_backgroundColor","theme_text_drawableTint",
+
+            "theme_button_textColor",
+            "theme_button_background", "theme_button_backgroundColor",
+            "theme_button_drawableTint","theme_button_iconTint")
 
 
         fun patchView(view: View,attr:String){
@@ -49,11 +62,8 @@ class SkinManager private constructor(var context: Context){
     }
 
     var enableSkin = false
-       set(value){
-       field = value
-           currentStyle = styles[1].first
-       }
 
+    private val bindings = ArrayList<ViewDataBinding?>()
     private val styles = ArrayList<Pair<String,Int>>()
     private val themes = ArrayMap<String,ArrayMap<String,Int>>()
     private var currentStyle = ""
@@ -74,7 +84,31 @@ class SkinManager private constructor(var context: Context){
                 themes[it.first] = obtainAttr(it.second)
             }
         }
-        currentStyle = styles[0].first
+
+    }
+
+    fun bindings(binding: ViewDataBinding?){
+        bindings.add(binding)
+    }
+
+
+    fun invalidateAll(){
+        bindings.forEach {
+            it?.apply {
+                invalidateAll()
+            }
+        }
+    }
+
+    fun switchThemeByName(name:String){
+        enableSkin = true//开启
+        for(style in styles){
+            if(style.first == name){
+                currentStyle = style.first
+                break
+            }
+        }
+        invalidateAll()
     }
 
 
@@ -90,6 +124,7 @@ class SkinManager private constructor(var context: Context){
     }
 
     fun patchView(view: View,attr:String){
+        if(!enableSkin) return
         val attrs = attr.split("|")
         if(attr.isEmpty()) return
         when(view.viewType()){
@@ -118,6 +153,48 @@ class SkinManager private constructor(var context: Context){
                                         }
                                     }
                                 }
+                            }
+                        }
+                    }
+                }
+            }
+            ViewType.Button, ViewType.MaterialButton ->{
+                val button = view as TextView
+                val theme = themes[currentStyle]
+                theme?.apply {
+                    attrs.forEach {
+                        when {
+                            it.trim() == "textColor" -> {
+                                button.setTextColor(this["theme_button_textColor"].getColorStateList())
+                            }
+                            it.trim()== "background" -> {
+                                if(view.viewType() == ViewType.MaterialButton){
+                                    button.backgroundTintList = this["theme_button_background"].getColorStateList()
+                                }else{
+                                    button.background = this["theme_button_background"].getDrawable()
+                                }
+                            }
+                            it.trim() == "backgroundColor" -> {
+                                if(view.viewType() == ViewType.MaterialButton){
+                                    button.backgroundTintList = this["theme_button_backgroundColor"].getColorStateList()
+                                }else{
+                                    button.setBackgroundColor(this["theme_button_backgroundColor"].getColor())
+                                }
+                            }
+                            it.trim() == "drawableTint" -> {
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                    button.compoundDrawableTintList = this["theme_button_drawableTint"]!!.getColorStateList()
+                                }else{
+                                    button.compoundDrawables.forEach { drawable ->
+                                        drawable?.apply {
+                                            this.setTintList(theme["theme_button_drawableTint"]!!.getColorStateList())
+                                        }
+                                    }
+                                }
+                            }
+                            it.trim() == "iconTint" ->{
+                                  view::class.java.methods.filter { method -> method.name == "setIconTint" }
+                                      .get(0).invoke(button,this@apply["theme_button_iconTint"]!!.getColorStateList())
                             }
                         }
                     }
