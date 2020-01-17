@@ -7,6 +7,8 @@ import android.os.Build
 import android.util.ArrayMap
 import android.view.ContextThemeWrapper
 import android.view.View
+import android.widget.Button
+import android.widget.RadioButton
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.ViewDataBinding
@@ -38,7 +40,12 @@ class SkinManager private constructor(var context: Context){
                 R.attr.theme_text_backgroundColor,R.attr.theme_text_drawableTint,
 
             R.attr.theme_button_textColor,R.attr.theme_button_background,
-            R.attr.theme_button_backgroundColor,R.attr.theme_button_drawableTint,R.attr.theme_button_iconTint)
+            R.attr.theme_button_backgroundColor,R.attr.theme_button_drawableTint,R.attr.theme_button_iconTint,
+
+            R.attr.theme_radio_textColor,R.attr.theme_radio_background,
+            R.attr.theme_radio_backgroundColor,R.attr.theme_radio_drawableTint,R.attr.theme_radio_buttonTint
+
+            )
 
 
         private val styleName = arrayOf(
@@ -48,7 +55,11 @@ class SkinManager private constructor(var context: Context){
 
             "theme_button_textColor",
             "theme_button_background", "theme_button_backgroundColor",
-            "theme_button_drawableTint","theme_button_iconTint")
+            "theme_button_drawableTint","theme_button_iconTint",
+
+            "theme_radio_textColor","theme_radio_background",
+            "theme_radio_backgroundColor","theme_radio_drawableTint","theme_radio_buttonTint"
+            )
 
 
         fun patchView(view: View,attr:String){
@@ -155,7 +166,7 @@ class SkinManager private constructor(var context: Context){
                 }
             }
             ViewType.Button, ViewType.MaterialButton ->{
-                val button = view as TextView
+                val button = view as Button
                 val theme = themes[currentStyle]
                 theme?.apply {
                     attrs.forEach {
@@ -191,6 +202,47 @@ class SkinManager private constructor(var context: Context){
                             it.trim() == "iconTint" ->{
                                   view::class.java.methods.filter { method -> method.name == "setIconTint" }
                                       .get(0).invoke(button,this@apply["theme_button_iconTint"]!!.getColorStateList())
+                            }
+                        }
+                    }
+                }
+            }
+            ViewType.RadioButton, ViewType.MaterialRadioButton ->{
+                val button = view as RadioButton
+                val theme = themes[currentStyle]
+                theme?.apply {
+                    attrs.forEach {
+                        when {
+                            it.trim() == "textColor" -> {
+                                button.setTextColor(this["theme_radio_textColor"].getColorStateList())
+                            }
+                            it.trim()== "background" -> {
+                                if(view.viewType() == ViewType.MaterialButton){
+                                    button.backgroundTintList = this["theme_radio_background"].getColorStateList()
+                                }else{
+                                    button.background = this["theme_radio_background"].getDrawable()
+                                }
+                            }
+                            it.trim() == "backgroundColor" -> {
+                                if(view.viewType() == ViewType.MaterialButton){
+                                    button.backgroundTintList = this["theme_radio_backgroundColor"].getColorStateList()
+                                }else{
+                                    button.setBackgroundColor(this["theme_radio_backgroundColor"].getColor())
+                                }
+                            }
+                            it.trim() == "drawableTint" -> {
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                    button.compoundDrawableTintList = this["theme_radio_drawableTint"]!!.getColorStateList()
+                                }else{
+                                    button.compoundDrawables.forEach { drawable ->
+                                        drawable?.apply {
+                                            this.setTintList(theme["theme_radio_drawableTint"]!!.getColorStateList())
+                                        }
+                                    }
+                                }
+                            }
+                            it.trim() == "buttonTint" ->{
+                                button.buttonTintList = this["theme_radio_buttonTint"]!!.getColorStateList()
                             }
                         }
                     }

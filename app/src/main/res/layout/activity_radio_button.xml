@@ -12,22 +12,24 @@
 
 
         <RadioButton
+            android:id="@+id/rb1"
             android:text="RadioButton"
             android:gravity="center"
             android:drawableTop="@drawable/dide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            skin="@{`textColor|background|drawableTint`}"
+            skin="@{`textColor|background|drawableTint|buttonTint`}"
             />
 
 
         <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rb2"
             android:text="MaterialRadioButton"
             android:drawableTop="@drawable/dide"
             android:layout_marginTop="35dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            skin="@{`textColor|background|drawableTint`}"
+            skin="@{`textColor|background|drawableTint|buttonTint`}"
             />
 
 

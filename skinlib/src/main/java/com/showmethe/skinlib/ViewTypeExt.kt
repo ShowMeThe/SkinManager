@@ -13,8 +13,11 @@ private const val MaterialTextView = "com.google.android.material.textview.Mater
 private const val Button = "androidx.appcompat.widget.AppCompatButton"
 private const val MaterialButton = "com.google.android.material.button.MaterialButton"
 
+private const val RadioButton = "androidx.appcompat.widget.AppCompatRadioButton"
+private const val MaterialRadioButton = "com.google.android.material.radiobutton.MaterialRadioButton"
+
 enum class ViewType{
-    View,TextView,MaterialTextView,Button,MaterialButton
+    View,TextView,MaterialTextView,Button,MaterialButton,RadioButton,MaterialRadioButton
 }
 
 fun View.viewType (): ViewType {
@@ -30,6 +33,12 @@ fun View.viewType (): ViewType {
         }
         MaterialButton -> {
             ViewType.MaterialButton
+        }
+        RadioButton -> {
+            ViewType.RadioButton
+        }
+        MaterialRadioButton -> {
+            ViewType.MaterialRadioButton
         }
         else -> ViewType.View
     }

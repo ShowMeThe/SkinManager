@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.showmethe.skinlib.SkinManager
 import com.showmethe.skinmanager.R
 import com.showmethe.skinmanager.activity.button.ButtonActivity
+import com.showmethe.skinmanager.activity.radioButton.RadioButtonActivity
 import com.showmethe.skinmanager.activity.textview.TextViewActivity
 import com.showmethe.skinmanager.adapter.GridSpaceItemDecoration
 import com.showmethe.skinmanager.databinding.ActivityMainBinding
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity() {
             when(position){
                 0-> start<TextViewActivity>()
                 1-> start<ButtonActivity>()
-                2-> start<RadioButton>()
+                2-> start<RadioButtonActivity>()
             }
         }
 

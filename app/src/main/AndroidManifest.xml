@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.radioButton.RadioButtonActivity"></activity>
+        <activity android:name=".activity.radioButton.RadioButtonActivity">
+
+        </activity>
         <activity android:name=".activity.button.ButtonActivity" />
         <activity android:name=".activity.textview.TextViewActivity" />
         <activity android:name=".activity.MainActivity">

@@ -25,6 +25,15 @@
         <item name="theme_button_drawableTint">@color/color_fce4ec</item>
         <item name="theme_button_iconTint">@color/color_fce4ec</item>
 
+
+        <item name="theme_radio_textColor">@color/color_304ffe</item>
+        <item name="theme_radio_background">@color/white</item>
+        <item name="theme_radio_backgroundColor">@color/white</item>
+        <item name="theme_radio_drawableTint">@color/color_fce4ec</item>
+        <item name="theme_radio_buttonTint">@color/color_fce4ec</item>
+
+
+
     </style>
 
 
@@ -40,6 +49,14 @@
         <item name="theme_button_backgroundColor">@color/color_304ffe</item>
         <item name="theme_button_drawableTint">@color/white</item>
         <item name="theme_button_iconTint">@color/white</item>
+
+        <item name="theme_radio_textColor">@color/white</item>
+        <item name="theme_radio_background">@color/color_304ffe</item>
+        <item name="theme_radio_backgroundColor">@color/color_304ffe</item>
+        <item name="theme_radio_drawableTint">@color/white</item>
+        <item name="theme_radio_buttonTint">@color/white</item>
+
+
     </style>
 
 
