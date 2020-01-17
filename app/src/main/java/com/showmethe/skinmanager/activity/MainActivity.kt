@@ -2,6 +2,7 @@ package com.showmethe.skinmanager.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.RadioButton
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
 import androidx.recyclerview.widget.GridLayoutManager
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         list.add("TextView")
         list.add("Button")
+        list.add("RadioButton")
         adapter = MainAdapter(this,list)
         rv.adapter = adapter
         rv.layoutManager = GridLayoutManager(this,2)
@@ -44,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             when(position){
                 0-> start<TextViewActivity>()
                 1-> start<ButtonActivity>()
+                2-> start<RadioButton>()
             }
         }
 

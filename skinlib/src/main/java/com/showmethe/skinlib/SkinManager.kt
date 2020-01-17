@@ -10,15 +10,11 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.ViewDataBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 /**
- *  com.example.ken.kmvvm.skin
- *  2020/1/14
- *  23:17
+ * Author: showMeThe
+ * Update Time: 2020/1/17 14:28
+ * Package Name:com.showmethe.skinlib
  */
 class SkinManager private constructor(var context: Context){
 
