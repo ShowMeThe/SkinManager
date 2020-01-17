@@ -2,16 +2,19 @@ package com.showmethe.skinlib
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.ArrayMap
 import android.view.ContextThemeWrapper
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RadioButton
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.ViewDataBinding
+import androidx.databinding.adapters.CardViewBindingAdapter
 
 /**
  * Author: showMeThe
@@ -36,6 +39,9 @@ class SkinManager private constructor(var context: Context){
         }
 
         private val attrs = intArrayOf(
+            R.attr.theme_viewGroup_background, R.attr.theme_viewGroup_backgroundColor,
+            R.attr.theme_card_backgroundColor, R.attr.theme_card_strokeColor,
+
             R.attr.theme_text_color,R.attr.theme_text_background,
                 R.attr.theme_text_backgroundColor,R.attr.theme_text_drawableTint,
 
@@ -49,6 +55,8 @@ class SkinManager private constructor(var context: Context){
 
 
         private val styleName = arrayOf(
+            "theme_viewGroup_background","theme_viewGroup_backgroundColor",
+            "theme_card_backgroundColor", "theme_card_strokeColor",
 
             "theme_text_color","theme_text_background",
                 "theme_text_backgroundColor","theme_text_drawableTint",
@@ -63,6 +71,10 @@ class SkinManager private constructor(var context: Context){
 
 
         fun patchView(view: View,attr:String){
+            get().patchView(view, attr)
+        }
+
+        fun patchView(view: ViewGroup,attr:String){
             get().patchView(view, attr)
         }
 
@@ -130,33 +142,71 @@ class SkinManager private constructor(var context: Context){
         return map
     }
 
+    fun patchView(view: ViewGroup,attr:String){
+        if(!enableSkin) return
+        val theme = themes[currentStyle]!!
+        val attrs = attr.split("|")
+        if(attr.isEmpty()) return
+        when(view.viewType()){
+            ViewType.CardView, ViewType.MaterialCardView->{
+                attrs.forEach {
+                    when{
+                        it.trim() == "divideColor" && view.viewType() == ViewType.MaterialCardView ->{
+                            theme["theme_card_strokeColor"]?.apply {
+                                view::class.java.methods.filter { method -> method.name == "setStrokeColor" }[1].invoke(view,getColorStateList())
+                            }
+                        }
+                        it.trim() == "backgroundColor" ->{
+                            theme["theme_card_backgroundColor"]?.apply {
+                                view::class.java.methods.filter { method -> method.name == "setCardBackgroundColor"  }[1].invoke(view,getColorStateList())
+                            }
+                        }
+                    }
+                }
+            }
+            else ->{
+                attrs.forEach {
+                    when{
+                        it.trim() == "background" ->{
+                            theme["theme_viewGroup_background"]?.apply { view.background == getDrawable() }
+                        }
+                        it.trim() == "backgroundColor" ->{
+                            theme["theme_viewGroup_backgroundColor"]?.apply { view.setBackgroundColor(getColor()) }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     fun patchView(view: View,attr:String){
         if(!enableSkin) return
         val attrs = attr.split("|")
+        val theme = themes[currentStyle]
         if(attr.isEmpty()) return
         when(view.viewType()){
             ViewType.TextView, ViewType.MaterialTextView ->{
                 val tv = view as TextView
-                val theme = themes[currentStyle]
                  theme?.apply {
                     attrs.forEach {
                         when {
                             it.trim() == "textColor" -> {
-                                tv.setTextColor(this["theme_text_color"].getColorStateList())
+                                this["theme_text_color"]?.apply { tv.setTextColor(getColorStateList()) }
                             }
                             it.trim()== "background" -> {
-                                tv.background = this["theme_text_background"].getDrawable()
+                                this["theme_text_background"]?.apply { tv.background = getDrawable() }
                             }
                             it.trim() == "backgroundColor" -> {
-                                tv.setBackgroundColor(this["theme_text_backgroundColor"].getColor())
+                                this["theme_text_backgroundColor"]?.apply {   tv.setBackgroundColor(getColor()) }
                             }
                             it.trim() == "drawableTint" -> {
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                    tv.compoundDrawableTintList = this["theme_text_drawableTint"]!!.getColorStateList()
+                                    this["theme_text_drawableTint"]?.apply {   tv.compoundDrawableTintList = getColorStateList() }
+
                                 }else{
                                     tv.compoundDrawables.forEach { drawable ->
                                         drawable?.apply {
-                                            this.setTintList(theme["theme_text_drawableTint"]!!.getColorStateList())
+                                            theme["theme_text_drawableTint"]?.apply { drawable.setTintList(getColorStateList())}
                                         }
                                     }
                                 }
@@ -167,41 +217,45 @@ class SkinManager private constructor(var context: Context){
             }
             ViewType.Button, ViewType.MaterialButton ->{
                 val button = view as Button
-                val theme = themes[currentStyle]
+
                 theme?.apply {
                     attrs.forEach {
                         when {
                             it.trim() == "textColor" -> {
-                                button.setTextColor(this["theme_button_textColor"].getColorStateList())
+                                this["theme_button_textColor"]?.apply { button.setTextColor(getColorStateList()) }
                             }
                             it.trim()== "background" -> {
                                 if(view.viewType() == ViewType.MaterialButton){
-                                    button.backgroundTintList = this["theme_button_background"].getColorStateList()
+                                    this["theme_button_background"]?.apply {   button.backgroundTintList = getColorStateList() }
                                 }else{
-                                    button.background = this["theme_button_background"].getDrawable()
+                                    this["theme_button_background"]?.apply { button.background = getDrawable() }
                                 }
                             }
                             it.trim() == "backgroundColor" -> {
                                 if(view.viewType() == ViewType.MaterialButton){
-                                    button.backgroundTintList = this["theme_button_backgroundColor"].getColorStateList()
+                                    this["theme_button_backgroundColor"]?.apply {  button.backgroundTintList = getColorStateList() }
+
                                 }else{
-                                    button.setBackgroundColor(this["theme_button_backgroundColor"].getColor())
+                                    this["theme_button_backgroundColor"]?.apply {   button.setBackgroundColor(getColor()) }
+
                                 }
                             }
                             it.trim() == "drawableTint" -> {
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                    button.compoundDrawableTintList = this["theme_button_drawableTint"]!!.getColorStateList()
+                                    this["theme_button_drawableTint"]?.apply { button.compoundDrawableTintList = getColorStateList() }
+
                                 }else{
                                     button.compoundDrawables.forEach { drawable ->
                                         drawable?.apply {
-                                            this.setTintList(theme["theme_button_drawableTint"]!!.getColorStateList())
+                                            theme["theme_button_drawableTint"]?.apply { drawable.setTintList(getColorStateList())}
+
                                         }
                                     }
                                 }
                             }
                             it.trim() == "iconTint" ->{
-                                  view::class.java.methods.filter { method -> method.name == "setIconTint" }
-                                      .get(0).invoke(button,this@apply["theme_button_iconTint"]!!.getColorStateList())
+                                this["theme_button_iconTint"]?.apply {
+                                    view::class.java.methods.filter { method -> method.name == "setIconTint" }[0].invoke(button,getColorStateList()) }
                             }
                         }
                     }
@@ -209,40 +263,40 @@ class SkinManager private constructor(var context: Context){
             }
             ViewType.RadioButton, ViewType.MaterialRadioButton ->{
                 val button = view as RadioButton
-                val theme = themes[currentStyle]
+
                 theme?.apply {
                     attrs.forEach {
                         when {
                             it.trim() == "textColor" -> {
-                                button.setTextColor(this["theme_radio_textColor"].getColorStateList())
+                                this["theme_radio_textColor"]?.apply { button.setTextColor(getColorStateList()) }
                             }
                             it.trim()== "background" -> {
-                                if(view.viewType() == ViewType.MaterialButton){
-                                    button.backgroundTintList = this["theme_radio_background"].getColorStateList()
+                                if(view.viewType() == ViewType.MaterialRadioButton){
+                                    this["theme_radio_background"]?.apply {   button.backgroundTintList = getColorStateList() }
                                 }else{
-                                    button.background = this["theme_radio_background"].getDrawable()
+                                    this["theme_radio_background"]?.apply { button.background = getDrawable() }
                                 }
                             }
                             it.trim() == "backgroundColor" -> {
-                                if(view.viewType() == ViewType.MaterialButton){
-                                    button.backgroundTintList = this["theme_radio_backgroundColor"].getColorStateList()
+                                if(view.viewType() == ViewType.MaterialRadioButton){
+                                    this["theme_radio_backgroundColor"]?.apply {  button.backgroundTintList = getColorStateList()}
                                 }else{
-                                    button.setBackgroundColor(this["theme_radio_backgroundColor"].getColor())
+                                    this["theme_radio_backgroundColor"]?.apply {  button.setBackgroundColor(getColor()) }
                                 }
                             }
                             it.trim() == "drawableTint" -> {
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                    button.compoundDrawableTintList = this["theme_radio_drawableTint"]!!.getColorStateList()
+                                    this["theme_radio_drawableTint"]?.apply { button.compoundDrawableTintList =  getColorStateList()}
                                 }else{
                                     button.compoundDrawables.forEach { drawable ->
                                         drawable?.apply {
-                                            this.setTintList(theme["theme_radio_drawableTint"]!!.getColorStateList())
+                                            theme["theme_radio_drawableTint"]?.apply { setTintList(getColorStateList()) }
                                         }
                                     }
                                 }
                             }
                             it.trim() == "buttonTint" ->{
-                                button.buttonTintList = this["theme_radio_buttonTint"]!!.getColorStateList()
+                                this["theme_radio_buttonTint"]?.apply { button.buttonTintList = getColorStateList() }
                             }
                         }
                     }
@@ -257,16 +311,24 @@ class SkinManager private constructor(var context: Context){
 
 
 
-    private fun Int?.getDrawable() : Drawable?{
-        return ContextCompat.getDrawable(context,this!!)
+    private fun Int.getDrawable() : Drawable?{
+        return if(this != -1){
+            ContextCompat.getDrawable(context,this)
+        }else{
+            null
+        }
     }
 
-    private fun Int?.getColor() : Int{
-        return ContextCompat.getColor(context,this!!)
+    private fun Int.getColor() : Int{
+        return ContextCompat.getColor(context,this)
     }
 
-    private fun Int?.getColorStateList() : ColorStateList?{
-        return ContextCompat.getColorStateList(context,this!!)
+    private fun Int.getColorStateList() : ColorStateList?{
+        return if(this != -1){
+            ContextCompat.getColorStateList(context,this)
+        }else{
+            ColorStateList.valueOf(Color.WHITE)
+        }
     }
 
 

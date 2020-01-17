@@ -1,6 +1,7 @@
 package com.showmethe.skinlib
 
 import android.view.View
+import android.view.ViewGroup
 
 /**
  * com.example.ken.kmvvm.skin
@@ -16,8 +17,11 @@ private const val MaterialButton = "com.google.android.material.button.MaterialB
 private const val RadioButton = "androidx.appcompat.widget.AppCompatRadioButton"
 private const val MaterialRadioButton = "com.google.android.material.radiobutton.MaterialRadioButton"
 
+private const val CardView = "androidx.cardview.widget.CardView"
+private const val MaterialCardView = "com.google.android.material.card.MaterialCardView"
+
 enum class ViewType{
-    View,TextView,MaterialTextView,Button,MaterialButton,RadioButton,MaterialRadioButton
+    View,ViewGroup,TextView,MaterialTextView,Button,MaterialButton,RadioButton,MaterialRadioButton,CardView,MaterialCardView
 }
 
 fun View.viewType (): ViewType {
@@ -41,5 +45,17 @@ fun View.viewType (): ViewType {
             ViewType.MaterialRadioButton
         }
         else -> ViewType.View
+    }
+}
+
+fun ViewGroup.viewType (): ViewType {
+    return when (this::class.java.name) {
+        CardView -> {
+            ViewType.CardView
+        }
+        MaterialCardView -> {
+            ViewType.MaterialCardView
+        }
+        else -> ViewType.ViewGroup
     }
 }

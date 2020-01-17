@@ -19,15 +19,5 @@ class RadioButtonActivity : AppCompatActivity() {
 
         SkinManager.get().bindings(binding)
 
-        change.setOnCheckedChangeListener { buttonView, isChecked ->
-            rb1.isChecked = false
-            rb2.isChecked = false
-            if(isChecked){
-                SkinManager.get().switchThemeByName("Theme1")
-            }else{
-                SkinManager.get().switchThemeByName("Theme2")
-            }
-        }
-
     }
 }

@@ -5,6 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:gravity="center"
+        android:background="#f7f7f7"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".activity.MainActivity">
@@ -16,16 +17,26 @@
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             app:layout_constraintTop_toTopOf="parent"
-            android:gravity="end|center"
             >
 
             <ImageView
                 android:src="@drawable/setting"
                 android:layout_marginEnd="15dp"
                 android:layout_width="25dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
                 android:layout_height="25dp"/>
 
+            <Switch
+                android:id="@+id/change"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
         </RelativeLayout>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv"

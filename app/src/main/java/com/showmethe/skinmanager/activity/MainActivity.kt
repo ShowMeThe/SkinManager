@@ -14,6 +14,8 @@ import com.showmethe.skinmanager.activity.textview.TextViewActivity
 import com.showmethe.skinmanager.adapter.GridSpaceItemDecoration
 import com.showmethe.skinmanager.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.change
+import kotlinx.android.synthetic.main.activity_text_view.*
 
 /**
  * Author: showMeThe
@@ -42,6 +44,14 @@ class MainActivity : AppCompatActivity() {
         rv.layoutManager = GridLayoutManager(this,2)
         rv.addItemDecoration(GridSpaceItemDecoration(2,30))
 
+
+        change.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked){
+                SkinManager.get().switchThemeByName("Theme1")
+            }else{
+                SkinManager.get().switchThemeByName("Theme2")
+            }
+        }
 
         adapter.setOnItemClickListener { view, position ->
             when(position){

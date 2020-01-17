@@ -8,6 +8,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
+        skin="@{`background`}"
         tools:context=".activity.textview.TextViewActivity">
 
 
@@ -32,12 +33,6 @@
             skin="@{`textColor|background|drawableTint|buttonTint`}"
             />
 
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/change"
-            android:layout_marginTop="45dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

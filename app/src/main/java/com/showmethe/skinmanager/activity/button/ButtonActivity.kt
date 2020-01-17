@@ -20,12 +20,5 @@ class ButtonActivity : AppCompatActivity() {
 
         SkinManager.get().bindings(binding)
 
-        change.setOnCheckedChangeListener { buttonView, isChecked ->
-            if(isChecked){
-                SkinManager.get().switchThemeByName("Theme1")
-            }else{
-                SkinManager.get().switchThemeByName("Theme2")
-            }
-        }
     }
 }

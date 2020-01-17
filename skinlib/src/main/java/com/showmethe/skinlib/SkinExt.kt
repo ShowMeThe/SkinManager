@@ -23,5 +23,6 @@ fun View.skin(url:String){
 
 @BindingAdapter("skin")
 fun ViewGroup.skin(url:String){
-
+    Log.d(TAG,this::class.java.name)
+    SkinManager.patchView(this,url)
 }

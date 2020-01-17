@@ -13,8 +13,8 @@
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="15dp"
         app:cardElevation="3dp"
-        app:strokeWidth="1dp"
-        app:strokeColor="@color/colorAccent"
+        app:strokeWidth="2dp"
+        skin="@{`backgroundColor|divideColor`}"
         >
         <TextView
             android:textSize="22sp"
@@ -22,7 +22,9 @@
             android:text="@{Bean}"
             android:textColor="@color/colorAccent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            skin="@{`textColor`}"
+            />
 
 
     </com.google.android.material.card.MaterialCardView>
