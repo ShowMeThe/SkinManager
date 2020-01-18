@@ -19,7 +19,7 @@
             android:drawableTop="@drawable/dide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            skin="@{`textColor|background|drawableTint|buttonTint`}"
+            skin="@{`textColor|backgroundColor|drawableTint|buttonTint`}"
             />
 
 
@@ -30,7 +30,7 @@
             android:layout_marginTop="35dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            skin="@{`textColor|background|drawableTint|buttonTint`}"
+            skin="@{`textColor|backgroundColor|drawableTint|buttonTint`}"
             />
 
 

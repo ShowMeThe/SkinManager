@@ -234,7 +234,6 @@ class SkinManager private constructor(var context: Context){
                             it.trim() == "backgroundColor" -> {
                                 if(view.viewType() == ViewType.MaterialButton){
                                     this["theme_button_backgroundColor"]?.apply {  button.backgroundTintList = getColorStateList() }
-
                                 }else{
                                     this["theme_button_backgroundColor"]?.apply {   button.setBackgroundColor(getColor()) }
 
@@ -271,18 +270,10 @@ class SkinManager private constructor(var context: Context){
                                 this["theme_radio_textColor"]?.apply { button.setTextColor(getColorStateList()) }
                             }
                             it.trim()== "background" -> {
-                                if(view.viewType() == ViewType.MaterialRadioButton){
-                                    this["theme_radio_background"]?.apply {   button.backgroundTintList = getColorStateList() }
-                                }else{
-                                    this["theme_radio_background"]?.apply { button.background = getDrawable() }
-                                }
+                                this["theme_radio_background"]?.apply { button.background = getDrawable() }
                             }
                             it.trim() == "backgroundColor" -> {
-                                if(view.viewType() == ViewType.MaterialRadioButton){
-                                    this["theme_radio_backgroundColor"]?.apply {  button.backgroundTintList = getColorStateList()}
-                                }else{
-                                    this["theme_radio_backgroundColor"]?.apply {  button.setBackgroundColor(getColor()) }
-                                }
+                                this["theme_radio_backgroundColor"]?.apply {  button.setBackgroundColor(getColor()) }
                             }
                             it.trim() == "drawableTint" -> {
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
