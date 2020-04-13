@@ -2,7 +2,24 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin:  'kotlin-kapt'
+apply plugin: 'maven'
 
+uploadArchives {
+    configuration = configurations.archives
+    repositories {
+        mavenDeployer {
+            repository(url: 'http://localhost:5566/repository/maven-releases/') {
+                authentication(userName: 'admin', password: 'admin123')
+            }
+            pom.project {
+                version '0.0.2'
+                artifactId 'skin'
+                groupId 'com.showMeThe'
+                packaging 'aar'
+            }
+        }
+    }
+}
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"

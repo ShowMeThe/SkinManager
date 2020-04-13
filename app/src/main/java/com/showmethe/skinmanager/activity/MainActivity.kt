@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this,
             R.layout.activity_main
         )
-        SkinManager.get().bindings(binding)
+
 
 
         list.add("TextView")
@@ -45,13 +45,7 @@ class MainActivity : AppCompatActivity() {
         rv.addItemDecoration(GridSpaceItemDecoration(2,30))
 
 
-        change.setOnCheckedChangeListener { buttonView, isChecked ->
-            if(isChecked){
-                SkinManager.get().switchThemeByName("Theme1")
-            }else{
-                SkinManager.get().switchThemeByName("Theme2")
-            }
-        }
+
 
         adapter.setOnItemClickListener { view, position ->
             when(position){
