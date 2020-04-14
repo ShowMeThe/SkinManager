@@ -28,25 +28,65 @@ fun ViewGroup.skin(url:String){
 自定义了部分属性,然后在style中配置对应的属性
 ```
 <resources>
-    <!--TextView & MaterialTextView-->
-    <attr name="theme_text_color" format="reference|color"/>
-    <attr name="theme_text_background" format="reference"/>
-    <attr name="theme_text_backgroundColor" format="reference|color"/>
-    <attr name="theme_text_drawableTint" format="reference|color"/>
- 
+     <style name="MaterialTheme.Blue">
+         <item name="theme_text_color">@color/colorAccent</item>
+         <item name="theme_viewGroup_backgroundColor">@color/colorAccent</item>
+         <item name="theme_viewGroup_background">@drawable/shape_drawer_head_bg</item>
+         <item name="theme_button_rippleColor">@color/color_5f4fc3f7</item>
+         <item name="theme_button_iconTint">@color/colorAccent</item>
+         <item name="theme_button_textColor">@color/colorAccent</item>
+         <item name="theme_button_strokeColor">@color/colorAccent</item>
+         <item name="theme_bottom_navigation_iconTint">@color/colorAccent</item>
+         <item name="theme_bottom_navigation_textColor">@color/colorAccent</item>
+         <item name="theme_imageView_tint">@color/colorAccent</item>
+         <item name="theme_card_strokeColor">@color/colorAccent</item>
+         <item name="theme_floating_backgroundColor">@color/colorAccent</item>
+         <item name="theme_edit_cursorDrawable">@drawable/shape_blue_cursor</item>
+         <item name="theme_inputLayout_boxColor">@color/colorAccent</item>
+         <item name="theme_inputLayout_hintColor">@color/colorAccent</item>
+         <item name="theme_edit_highlightColor">@color/colorAccent</item>
+    </style>
+
+
+    <style name="MaterialTheme.Red">
+        <item name="theme_text_color">@color/color_304ffe</item>
+        <item name="theme_viewGroup_backgroundColor">@color/color_304ffe</item>
+        <item name="theme_viewGroup_background">@drawable/shape_drawer_head_bg_red</item>
+        <item name="theme_button_rippleColor">@color/color_5fff4081</item>
+        <item name="theme_button_iconTint">@color/color_ff4081</item>
+        <item name="theme_button_textColor">@color/color_ff4081</item>
+        <item name="theme_button_strokeColor">@color/color_ff4081</item>
+        <item name="theme_bottom_navigation_iconTint">@color/color_ff4081</item>
+        <item name="theme_bottom_navigation_textColor">@color/color_ff4081</item>
+        <item name="theme_imageView_tint">@color/color_ff4081</item>
+        <item name="theme_card_strokeColor">@color/color_ff4081</item>
+        <item name="theme_floating_backgroundColor">@color/color_ff4081</item>
+        <item name="theme_edit_cursorDrawable">@drawable/shape_red_cursor</item>
+        <item name="theme_inputLayout_boxColor">@color/color_ff4081</item>
+        <item name="theme_inputLayout_hintColor">@color/color_ff4081</item>
+        <item name="theme_edit_highlightColor">@color/color_ff4081</item>
+    </style>
+
  ........省略..........
 </resources>
 ```
 4、初始化,可以不在Application中初始化
 ```
-class DemoApplication : Application() {
-    override fun onCreate() {
-        super.onCreate()
-        SkinManager.init(this).addStyle(
-            "Theme1" to R.style.Theme1,
-            "Theme2" to R.style.Theme2
-        ).build()
-    }
-}
+ val json = AssetFile.getJson(this,"orange.json")
+        val colorEntity = json.fromJson<ColorEntity>()!!
+        val json2 = AssetFile.getJson(this,"yellow.json")
+        val colorEntity2 = json2.fromJson<ColorEntity>()!!
+
+SkinManager.init(this).addStyle(
+            themes_name[0] to R.style.MaterialTheme_Blue,
+            themes_name[1] to R.style.MaterialTheme_Red,
+            themes_name[2] to R.style.MaterialTheme_Purple)
+            .addJson(themes_name[3] to colorEntity, themes_name[4] to colorEntity2)
+            .addPlugin(
+                RefreshPlugin(),SmartIPlugin(),
+                ExpandIPlugin(), SearchChipGroup(),
+                bannerPlugin, ShakingImageViewIPlugin(),
+                WaveIPlugin())
+            .build()
 ```
 
