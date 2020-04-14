@@ -1,5 +1,5 @@
 ## 要点提醒：
-### 1 ···  基于Databinding下，进行统一管理颜色切换（实验）
+### 1 ···  基于Databinding下，进行统一管理颜色切换
 ### 2 ...  实验效果看https://github.com/ShowMeThe/MaterialWanAndroid 的效果
 
 ## 设计构想：  
