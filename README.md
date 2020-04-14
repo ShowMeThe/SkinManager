@@ -1,6 +1,6 @@
 ## 要点提醒：
 ### 1 ···  基于Databinding下，进行统一管理颜色切换（实验）
-### 2 ...  本库尚未开发完成，希望各位看官路过后留下你的意见，欢迎PR
+### 2 ...  实验效果看https://github.com/ShowMeThe/MaterialWanAndroid 的效果
 
 ## 设计构想：  
 1、讲解设计思路和用发前先看一下预览的GIF:</br>
@@ -50,19 +50,3 @@ class DemoApplication : Application() {
 }
 ```
 
-## TODO:  
-Widget和ViewGroup未开发进度：</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<del>ViewGroup</del></br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<del>TextView</del></br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<del>MaterialTextView</del></br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<del>Button</del></br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<del>MaterialButton</del></br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<del>RadioButton</del></br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<del>MaterialTextView</del></br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<del>MaterialRadioButton</del></br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<del>CardView</del></br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<del>MaterialCardView</del></br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;CheckButton</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;ImageView</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Slide</br>
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;EditText</br>
