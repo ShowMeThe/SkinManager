@@ -1,6 +1,7 @@
 ## 要点提醒：
-### 1 ···  基于Databinding下，进行统一管理颜色切换
+### 1 ···  基于Databinding下，进行统一管理颜色切换(如果好用，后面会继续维护这个库)
 ### 2 ...  实验效果看https://github.com/ShowMeThe/MaterialWanAndroid 的效果
+<img src="https://github.com/ShowMeThe/WanAndroid/blob/master/theme1.gif" width ="200" alt="GZA9mT.gif" border="0" /></br></br>
 
 ## 设计构想：  
 1、讲解设计思路和用发前先看一下预览的GIF:</br>
