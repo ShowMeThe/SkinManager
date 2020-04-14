@@ -70,7 +70,7 @@ fun ViewGroup.skin(url:String){
  ........省略..........
 </resources>
 ```
-4、初始化,可以不在Application中初始化
+4、在Application中初始化，支持自定义的view,需要另外实现Plugin的接口，支持外部Json
 ```
  val json = AssetFile.getJson(this,"orange.json")
         val colorEntity = json.fromJson<ColorEntity>()!!
